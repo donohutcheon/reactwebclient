@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
+import RefreshIcon from '@material-ui/icons/Refresh';
 import FilterListIcon from "@material-ui/icons/FilterList";
 import EnhancedTableFilter from "./EnhancedTableFilter";
 import PropTypes from "prop-types";
@@ -29,17 +30,28 @@ const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 export default function EnhancedTableToolbar(props) {
+	const {onRefreshTable} = props;
 	const classes = useToolbarStyles();
 	const [isFilterVisible, setFilterVisible] = useState(false)
 	const showFilter = (property) => (event) => {
 		setFilterVisible(!isFilterVisible)
 	};
+
 	return (
 		<React.Fragment>
 			<Toolbar>
 				<Typography className={classes.title} variant="h6" id="tableTitle" component="div">
 					Card Transactions
 				</Typography>
+				<Tooltip title="Refresh">
+					<IconButton
+						aria-label="refresh table"
+						onClick={onRefreshTable}
+					>
+						<RefreshIcon/>
+
+					</IconButton>
+				</Tooltip>
 				<Tooltip title="Filter list">
 					<IconButton
 						aria-label="filter list"
@@ -58,7 +70,5 @@ export default function EnhancedTableToolbar(props) {
 
 EnhancedTableToolbar.propTypes = {
 	classes: PropTypes.object.isRequired,
-	onRequestSort: PropTypes.func.isRequired,
-	order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-	orderBy: PropTypes.string.isRequired,
+	onRefreshTable: PropTypes.func.isRequired,
 };

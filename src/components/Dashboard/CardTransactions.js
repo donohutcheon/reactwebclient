@@ -79,6 +79,10 @@ export default function CardTransactions() {
     setPage(0);
   };
 
+  const handleRefreshTable = (event) => {
+    makeRequest();
+  };
+
   const [{ status, response }, makeRequest] = useApiRequest(
       `/api/me/card-transactions`,
       {
@@ -110,7 +114,9 @@ export default function CardTransactions() {
     <React.Fragment>
       <Paper className={classes.table} >
         <TableContainer>
-          <EnhancedTableToolbar/>
+          <EnhancedTableToolbar
+              onRefreshTable={handleRefreshTable}
+          />
           <Table size="small">
             <EnhancedTableHead
                 classes={classes}
