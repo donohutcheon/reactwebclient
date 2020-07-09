@@ -5,7 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
-import {mainListItems, secondaryListItems} from "./Dashboard/listItems";
+import {mainListItems} from "./Dashboard/listItems";
 import {makeStyles} from "@material-ui/core/styles";
 
 const drawerWidth = 240;
@@ -111,8 +111,6 @@ export default function MyDrawer() {
             </div>
             <Divider />
             <List>{mainListItems}</List>
-            <Divider />
-            <List>{secondaryListItems}</List>
         </Drawer>
     );
 }

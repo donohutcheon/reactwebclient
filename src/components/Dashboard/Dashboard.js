@@ -13,17 +13,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
-import {useHistory} from "react-router-dom";
+import MainMenuList, { mainListItems } from './listItems';
 import CardTransactions from "./CardTransactions";
+import Settings from "./Settings";
 
 function Copyright() {
   return (
@@ -122,6 +118,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [content, setContent] = React.useState('dashboard-menu-item');
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -129,6 +126,10 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const onMenuChanged = (e) => {
+    setContent(e.currentTarget.id)
+  }
+
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -169,9 +170,9 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
+        <List>
+          <MainMenuList classes={classes} onItemClicked={onMenuChanged} />
+        </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -179,9 +180,10 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             {/* Card Transactions */}
             <Grid item xs={12}>
-              {/*<Paper className={fixedHeightPaper}>*/}
-                <CardTransactions />
-              {/*</Paper>*/}
+              {content=='card-transactions-menu-item' && <CardTransactions />}
+            </Grid>
+            <Grid item xs={12}>
+              {content=='settings-menu-item' && <Settings />}
             </Grid>
           </Grid>
           <Box pt={4}>

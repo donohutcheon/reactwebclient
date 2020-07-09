@@ -2,86 +2,40 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import {Link} from 'react-router-dom'
+import SettingsIcon from '@material-ui/icons/Settings';
+import PropTypes from "prop-types";
 
-export const mainListItems = (
-    <div>
-        <Link to="/">
-            <ListItem button>
-                <ListItemIcon>
-                    <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="Home"  />
-            </ListItem>
-        </Link>
-        <Link to="/about">
-            <ListItem button>
-                <ListItemIcon>
-                    <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="About"  />
-            </ListItem>
-        </Link>
-        <ListItem button>
-            <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard"  />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Orders" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Customers" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <BarChartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Reports" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <LayersIcon />
-            </ListItemIcon>
-            <ListItemText primary="Integrations" />
-        </ListItem>
-    </div>
-);
+export default function MainMenuList(props) {
+    const {classes, onItemClicked} = props;
 
-export const secondaryListItems = (
-    <div>
-        <ListSubheader inset>Saved reports</ListSubheader>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Current month" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Last quarter" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Year-end sale" />
-        </ListItem>
-    </div>
-);
+    const onClick = (e, v) => {
+        onItemClicked(e)
+    }
+
+    return (
+        <React.Fragment>
+            <ListItem id={'card-transactions-menu-item'}
+                      button
+                      onClick={((e) => onClick(e))}>
+                <ListItemIcon>
+                    <DashboardIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Card Transactions"/>
+            </ListItem>
+            <ListItem id={'settings-menu-item'}
+                      button
+                      onClick={((e) => onClick(e))}>
+                <ListItemIcon>
+                    <SettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Settings"/>
+            </ListItem>
+        </React.Fragment>
+    )
+};
+
+MainMenuList.propTypes = {
+    classes: PropTypes.object.isRequired,
+    onItemClicked: PropTypes.func.isRequired,
+}
